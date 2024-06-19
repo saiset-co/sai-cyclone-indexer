@@ -1,0 +1,22 @@
+common:
+  http:
+    enabled: true
+    port: 8080
+  ws:
+    enabled: false
+    port: 8081
+
+storage:
+  token: ""
+  url: ""
+  collection: ""
+
+notifier:
+  sender_id: "CYCLONE"
+  token: ""
+  url: ""
+
+cyclone:
+  node_address: ""
+  start_block: 0
+  sleep_duration: 2

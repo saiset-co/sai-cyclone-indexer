@@ -1,0 +1,10 @@
+services:
+  sai-cyclone-indexer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./addresses.json:/srv/addresses.json
+      - ./latest_handled_block.data:/srv/latest_handled_block.data
