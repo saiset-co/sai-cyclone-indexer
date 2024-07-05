@@ -1,12 +1,10 @@
 package internal
 
 import (
-	"encoding/json"
 	"errors"
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/spf13/cast"
@@ -67,7 +65,7 @@ func (is *InternalService) Init() {
 		is.currentBlock = latestHandledBlock
 	}
 
-	startBlock := cast.ToInt(is.Context.GetConfig("start_block", 0))
+	startBlock := cast.ToInt(is.Context.GetConfig("cyclone.start_block", 0))
 	if is.currentBlock < startBlock {
 		is.currentBlock = startBlock
 	}
@@ -94,7 +92,7 @@ func (is *InternalService) Process() {
 				continue
 			}
 
-			if is.currentBlock >= latestBlockHeight {
+			if is.currentBlock > latestBlockHeight {
 				time.Sleep(time.Second * sleepDuration)
 				continue
 			}
@@ -126,15 +124,12 @@ func (is *InternalService) handleBlockTxs() error {
 		var isReceiver = false
 		_, isSender := is.addresses[txRes.Sender]
 
-		CBytes, err := json.Marshal(txRes.Exec.VmResponse.C)
-		if err != nil {
-			logger.Logger.Error("handleBlockTxs", zap.Error(err))
-		}
-
 		for addr, _ := range is.addresses {
-			if strings.Contains(string(CBytes), addr) {
-				isReceiver = true
-				break
+			for _, mapC := range txRes.Exec.VmResponse.C {
+				if _, ok := mapC[addr]; ok {
+					isReceiver = true
+					break
+				}
 			}
 
 			if _, ok := txRes.Exec.VmResponse.D[addr]; ok {

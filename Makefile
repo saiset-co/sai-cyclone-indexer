@@ -1,6 +1,6 @@
 SERVICE_NAME=sai-cyclone-indexer
-EXTERNAL_PORT=8080
-PORT=8080
+EXTERNAL_PORT=8881
+PORT=8881
 
 build:
 	docker-compose up -d --build

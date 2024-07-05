@@ -53,7 +53,7 @@ func (is *InternalService) rewriteLastHandledBlock(blockHeight int) error {
 }
 
 func (is *InternalService) sendQuery(url string, data interface{}, response interface{}) error {
-	node := cast.ToString(is.Context.GetConfig("node_address", ""))
+	node := cast.ToString(is.Context.GetConfig("cyclone.node_address", ""))
 
 	requestBody, err := json.Marshal(data)
 	if err != nil {

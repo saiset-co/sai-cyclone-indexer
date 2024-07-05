@@ -32,11 +32,11 @@ type Tx struct {
 }
 
 type VmResponse struct {
-	C interface{}            `json:"C"`
-	D map[string]interface{} `json:"D"`
-	R map[string]interface{} `json:"R"`
-	T map[string]interface{} `json:"T"`
-	V map[string]interface{} `json:"V"`
+	C []map[string]interface{} `json:"C"`
+	D map[string]interface{}   `json:"D"`
+	R map[string]interface{}   `json:"R"`
+	T map[string]interface{}   `json:"T"`
+	V map[string]interface{}   `json:"V"`
 }
 
 type Message struct {
